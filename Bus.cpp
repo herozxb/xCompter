@@ -43,7 +43,7 @@ Bus::Bus(CPU cpu_)
 	ram[0x0005] = 0x0603; 
 	printf("ram[0x0005] is = %hx \n", ram[0x0005]);	
 	
-	*/
+	//*/
 	
 	/***********************************************************
 	0x8000 0x01
@@ -80,8 +80,9 @@ Bus::Bus(CPU cpu_)
 	6: JZ  0x00
 	7: JMP 0x04
 	***********************************************************/
-	
-		//Instruction from 0x0000
+
+  /*
+  //Instruction from 0x0000
 	// 0
 	ram[0x0000] = 0x0E00;
 	printf("ram[0x0000] is = %hx \n", ram[0x0000]);	
@@ -106,7 +107,96 @@ Bus::Bus(CPU cpu_)
 	// 7
 	ram[0x0007] = 0x0604; 
 	printf("ram[0x0005] is = %hx \n", ram[0x0005]);	
+	//*/
 	
+	/***********************************************************
+	Z = X * Y
+  CODE:
+	0:  LDA 0x20 
+	1:  SUB 0x12
+	2:  JC  0x06
+	3:  LDA 0x13
+	4:  OUT  
+	5:  HLT
+	6:  STA 0x20
+	7:  LDA 0x0D
+	8:  ADD 0x21
+	9:  STA 0x0D
+	A:  JMP 0x00
+	B:
+	
+	DATA: 
+	C: 1 
+	D: product
+	20: x
+	21: y
+	***********************************************************/
+
+  
+  //Instruction from 0x0000
+
+	// 0
+	ram[0x0000] = 0x0120;
+	printf("ram[0x0000] is = %hx \n", ram[0x0000]);	
+
+	// 1
+	ram[0x0001] = 0x030C; 
+	printf("ram[0x0001] is = %hx \n", ram[0x0001]);	
+
+	// 2
+	ram[0x0002] = 0x0706; 
+	printf("ram[0x0002] is = %hx \n", ram[0x0002]);	
+
+	// 3
+	ram[0x0003] = 0x010D; 
+	printf("ram[0x0003] is = %hx \n", ram[0x0003]);	
+
+	// 4
+	ram[0x0004] = 0x0E00; 
+	printf("ram[0x0004] is = %hx \n", ram[0x0004]);	
+
+	// 5
+	ram[0x0005] = 0x0F00; 
+	printf("ram[0x0005] is = %hx \n", ram[0x0005]);	
+
+	// 6
+	ram[0x0006] = 0x0420; 
+	printf("ram[0x0006] is = %hx \n", ram[0x0006]);	
+
+	// 7
+	ram[0x0007] = 0x010D; 
+	printf("ram[0x0007] is = %hx \n", ram[0x0007]);	
+	
+	// 8
+	ram[0x0008] = 0x0221; 
+	printf("ram[0x0008] is = %hx \n", ram[0x0008]);	
+
+	// 9
+	ram[0x0009] = 0x040D; 
+	printf("ram[0x0009] is = %hx \n", ram[0x0009]);	
+	
+	// A
+	ram[0x000A] = 0x0E00; 
+	printf("ram[0x000A] is = %hx \n", ram[0x000A]);	
+	
+	// B
+	ram[0x000B] = 0x0600; 
+	printf("ram[0x000B] is = %hx \n", ram[0x000B]);	
+	
+	
+	//DATA
+	ram[0x800C] = 0x0001;
+	printf("ram[0x800C] is = %hx \n", ram[0x800C]);	
+		
+	ram[0x800D] = 0x0000;
+	printf("ram[0x800D] is = %hx \n", ram[0x800D]);	
+	
+	ram[0x8020] = 0x0003; //input X
+	printf("ram[0x8020] is = %hx \n", ram[0x8020]);	
+		
+	ram[0x8021] = 0x0002; //input Y
+	printf("ram[0x8021] is = %hx \n", ram[0x8021]);	
+	//*/
 }
 
 

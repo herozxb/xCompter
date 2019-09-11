@@ -8,8 +8,8 @@ Uses
 
 * 1. NOP(do nothing)
 * 2. LDA() #did not debug
-* 3. ADD 0x0F (add register A and register B and put the result in register A )
-* 4. SUB 0x0F (sub register A and register B and put the result in register A )
+* 3. ADD 0x0F (add register A and register B and put the result in register A,{if register A + register B > 0xFFFF then Carry(C) = 1 } )
+* 4. SUB 0x0F (sub register A and register B and put the result in register A,{if((ARegister - BRegister) == 0xFFFE) Carry(C) = 0 else Carry(C) = 1 } (this is the Ben Eater's hardware's definition, he define the SUB like this ) )
 * 5. STA 0x03 (store register A, in the 0x8003 address)
 * 6. LDI 0x03 (load data in address 0x8003 into register A)
 * 7. JMP 0x07 (jump to the address 0x0007)

@@ -76,11 +76,11 @@ void CPU::clock()
         break;
     case 0x07:
         cout<<"I am here and JC() "<<endl; 
-        JC(); 
+        JC();  //DONE
         break;
     case 0x08: 
         cout<<"I am here and JZ() "<<endl; 
-        JZ();
+        JZ();  //DONE
         break;
     case 0x0E:
         cout<<"I am here and OUT() "<<endl; 
@@ -156,7 +156,7 @@ uint16_t CPU::LDA()
   programCounter++;
   
   //make the function
-  memoryAddressRegister = 0x8000 | instructionRegister;  //0x80 store the data
+  memoryAddressRegister = 0x8000 | ( instructionRegister & 0x00ff);  //0x80 store the data
   ARegister = read(memoryAddressRegister);
 
 }
@@ -211,6 +211,17 @@ uint16_t CPU::SUB()
   else
   {
     Z = 0;
+  }
+  
+  printf("BRegister is = %hx \n", BRegister);
+  
+  if((ARegister - BRegister) == 0xFFFE)
+  {
+    C = 0;
+  }
+  else
+  {
+    C = 1;
   }
   
 }
@@ -318,6 +329,10 @@ uint16_t CPU::HLT()
   memoryAddressRegister = programCounter;
   instructionRegister   = read(memoryAddressRegister);
   programCounter++;
+  while(1){
+    cout<<"HLT"<<endl;
+    sleep(5);
+  }
 }
 
 
