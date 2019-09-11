@@ -17,16 +17,6 @@ CPU::~CPU()
 }
 
 
-///////////////////////////////////////////////////////////////////////////////
-// EXTERNAL INPUTS
-
-// Forces the 6502 into a known state. This is hard-wired inside the CPU. The
-// registers are set to 0x00, the status register is cleared except for unused
-// bit which remains at 1. An absolute address is read from location 0xFFFC
-// which contains a second address that the program counter is set to. This 
-// allows the programmer to jump to a known and programmable location in the
-// memory to start executing from. Typically the programmer would set the value
-// at location 0xFFFC at compile time.
 void CPU::reset()
 {
 	programCounter = 0x0000;
@@ -285,9 +275,9 @@ uint16_t CPU::JC()
   //make the function
   if( 1 == C )
   {
-    cout<<"********************************"<<endl;
+    cout<<"*********************"<<endl;
     cout<<"The C (Carry) is = "<<C<<endl;
-    cout<<"********************************"<<endl;
+    cout<<"*********************"<<endl;
     programCounter = instructionRegister & 0x00ff ;
     C = 0;
   }
@@ -303,9 +293,9 @@ uint16_t CPU::JZ()
   //make the function
   if( 1 == Z )
   {
-    cout<<"********************************"<<endl;
+    cout<<"********************"<<endl;
     cout<<"The Z (Zero) is = "<<Z<<endl;
-    cout<<"********************************"<<endl;
+    cout<<"********************"<<endl;
     programCounter = instructionRegister & 0x00ff ;
     Z = 0;
   }
@@ -318,9 +308,9 @@ uint16_t CPU::OUT()
   programCounter++;
   
   //make the function
-  cout<<"********************************"<<endl;
+  cout<<"**********************************"<<endl;
   cout<<"The output( A Register ) is = "<<ARegister<<endl;
-  cout<<"********************************"<<endl;
+  cout<<"**********************************"<<endl;
 }
 
 uint16_t CPU::HLT()
