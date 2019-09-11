@@ -2,11 +2,9 @@
 #include <stdio.h>
 #include <unistd.h>
 
-
-
 Bus::Bus(CPU cpu_)
 {
-  cpu = &cpu_;
+    cpu = &cpu_;
 	// Connect CPU to communication bus
 	cpu->ConnectBus(this);
 	// Clear RAM contents, just in case :P
@@ -55,6 +53,7 @@ Bus::Bus(CPU cpu_)
 	***********************************************************/
 	
 	//Data from 0x8000
+    cout<<"DATA:"<<endl;
   ram[0x8000] = 0x0001; 
 	printf("ram[0x8000] is = %hx \n", ram[0x8000]);	
 	ram[0x8001] = 0x0002; 
@@ -68,7 +67,7 @@ Bus::Bus(CPU cpu_)
 	
 	ram[0x800F] = 0x2710;
 	printf("ram[0x800F] is = %hx \n", ram[0x800F]);	
-	
+    cout<<"CODE:"<<endl;
 	
   /***********************************************************
 	0: OUT 
@@ -215,8 +214,8 @@ uint16_t Bus::read(uint16_t addr, bool bReadOnly)
 
 	if (addr >= 0x0000 && addr <= 0xFFFF)
 	{
-	  printf("I am here and addr is = %hx \n", addr);
-	  printf("I am here and ram[addr] is = = %hx \n", ram[addr]);
+	  printf("I am here and ***KEY MEMORY ADDRESS*** is = %hx \n", addr);
+	  printf("I am here and Memory RAM's ram[addr] is = = %hx \n", ram[addr]);
 		return ram[addr];
 	}
 	else

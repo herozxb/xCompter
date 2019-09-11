@@ -36,11 +36,7 @@ public:
 	bool Z = 0;	// Zero
 	
 private:
-
-	uint16_t  fetched     = 0x0000;   // Represents the working input value to the ALU
 	uint16_t  temp        = 0x0000; // A convenience variable used everywhere
-	uint16_t  addr_abs    = 0x0000; // All used memory addresses end up in here
-	uint16_t  addr_rel    = 0x0000;   // Represents absolute address following a branch
 	uint8_t   opcode      = 0x00;   // Is the instruction byte
 	uint32_t  clock_count = 0;	   // A global accumulation of the number of clocks
 
@@ -49,7 +45,6 @@ private:
 	void    write(uint16_t a, uint16_t d);
 
 private:
-  uint16_t fetch();
   uint16_t NOP();
   uint16_t LDA();
   uint16_t ADD();

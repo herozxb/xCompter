@@ -7,7 +7,6 @@ using namespace std;
 
 CPU::CPU()
 {
-	// constructor - has nothing to do
 	reset();
 }
 
@@ -19,19 +18,12 @@ CPU::~CPU()
 
 void CPU::reset()
 {
-	programCounter = 0x0000;
-
-	// Reset internal registers
-	sumRegister           = 0;
-	ARegister             = 0;
-	BRegister             = 0;
+	programCounter        = 0x0000;
+	sumRegister           = 0x0000;
+	ARegister             = 0x0000;
+	BRegister             = 0x0000;
 	instructionRegister   = 0x0000;
-	memoryAddressRegister = 0x0000;	
-
-	// Clear internal helper variables
-	addr_rel = 0x0000;
-	addr_abs = 0x0000;
-	fetched = 0x0000;
+	memoryAddressRegister = 0x0000;
 }
 
 
@@ -42,8 +34,8 @@ void CPU::clock()
   temp = read(programCounter);
   opcode =(temp >> 8) & 0xff;
   printf("I am here and opcode is = %x \n", opcode);
-  cout<<"I am here and programCounter = "<< programCounter <<endl;
-  
+  printf("I am here and programCounter = %x \n", programCounter);
+    
   switch (opcode)
   {
     case 0x00:
@@ -94,7 +86,7 @@ void CPU::clock()
         break; 
   }
   
-  sleep(0.01);
+  sleep(2);
   cout<<"================================================================"<<endl;
   
   // Increment global clock count - This is actually unused unless logging is enabled
@@ -115,7 +107,7 @@ uint16_t CPU::read(uint16_t a)
 	// want to read the data at an address without changing the state of the
 	// devices on the bus
 	
-  cout<<"I am here and 1.3.1 read(address)'s address is = "<< a <<endl;	
+    printf("I am here and Function read( uint16_t address )'s address is =  %x \n", a);
 	return bus->read(a, false);
 }
 
@@ -125,18 +117,12 @@ void CPU::write(uint16_t a, uint16_t d)
 	bus->write(a, d);
 }
 
-
-uint16_t CPU::fetch()
-{
-  return fetched;
-}
-
 /*
 	uint16_t  sumRegister                = 0x0000;		// Accumulator Register
 	uint16_t  ARegister                  = 0x0000;		// X Register
 	uint16_t  BRegister                  = 0x0000;		// Y Register
-	uint16_t  programCounter             = 0x0000;	// Program Counter
-	uint16_t  memoryAddressRegister      = 0x0000;	// Program Counter
+	uint16_t  programCounter             = 0x0000;	    // Program Counter
+	uint16_t  memoryAddressRegister      = 0x0000;	    // Program Counter
 	uint16_t  instructionRegister        = 0x0000;		// Status Register
 //*/
 
@@ -147,6 +133,8 @@ uint16_t CPU::NOP()
   memoryAddressRegister = programCounter;
   instructionRegister   = read(memoryAddressRegister);
   programCounter++;
+    
+  return 0;
 }
 uint16_t CPU::LDA()
 {
@@ -159,6 +147,7 @@ uint16_t CPU::LDA()
   memoryAddressRegister = 0x8000 | ( instructionRegister & 0x00ff);  //0x80 store the data
   ARegister = read(memoryAddressRegister);
 
+  return 0;
 }
 uint16_t CPU::ADD()
 {
@@ -187,7 +176,7 @@ uint16_t CPU::ADD()
   {
     C = 0;
   }
-  
+  return 0;
 }
 uint16_t CPU::SUB()
 {
@@ -213,7 +202,7 @@ uint16_t CPU::SUB()
     Z = 0;
   }
   
-  printf("BRegister is = %hx \n", BRegister);
+  //printf("BRegister is = %hx \n", BRegister);
   
   if((ARegister - BRegister) == 0xFFFE)
   {
@@ -223,7 +212,7 @@ uint16_t CPU::SUB()
   {
     C = 1;
   }
-  
+  return 0;
 }
 
 uint16_t CPU::STA()
@@ -238,7 +227,7 @@ uint16_t CPU::STA()
   printf("memoryAddressRegister is = %hx \n", memoryAddressRegister);
   write(memoryAddressRegister,ARegister);
   printf("ARegister is = %hx \n", ARegister);
-  
+  return 0;
 }
 uint16_t CPU::LDI()
 { //All the actions need the following instruction
@@ -261,6 +250,7 @@ uint16_t CPU::LDI()
   
   //make the function
   ARegister = instructionRegister;
+  return 0;
 }
 uint16_t CPU::JMP()
 { //All the actions need the following instruction
@@ -275,7 +265,7 @@ uint16_t CPU::JMP()
   //make the function
   programCounter = instructionRegister & 0x00ff;
  	//printf("programCounter 2 is = %hx \n", programCounter);
-  
+  return 0;
 }
 uint16_t CPU::JC()
 { //All the actions need the following instruction
@@ -293,7 +283,7 @@ uint16_t CPU::JC()
     C = 0;
   }
   
-  
+  return 0;
 }
 uint16_t CPU::JZ()
 { //All the actions need the following instruction
@@ -310,6 +300,7 @@ uint16_t CPU::JZ()
     programCounter = instructionRegister & 0x00ff ;
     Z = 0;
   }
+  return 0;
 }
 
 uint16_t CPU::OUT()
@@ -322,17 +313,19 @@ uint16_t CPU::OUT()
   cout<<"**********************************"<<endl;
   cout<<"The output( A Register ) is = "<<ARegister<<endl;
   cout<<"**********************************"<<endl;
+  return 0;
 }
 
 uint16_t CPU::HLT()
-{  //All the actions need the following instruction
-  memoryAddressRegister = programCounter;
-  instructionRegister   = read(memoryAddressRegister);
-  programCounter++;
+{ //All the actions need the following instruction
+  //memoryAddressRegister = programCounter;
+  //instructionRegister   = read(memoryAddressRegister);
+  //programCounter++;
   while(1){
     cout<<"HLT"<<endl;
-    sleep(5);
+    sleep(10);
   }
+  return 0;
 }
 
 

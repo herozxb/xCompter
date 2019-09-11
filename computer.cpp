@@ -9,11 +9,10 @@ using namespace std;
 int main()
 {
   cout<<"Hello World!"<<endl;
-  CPU testCpu;
-  Bus nes(testCpu);
+  CPU cpu;
+  Bus bus(cpu);
   while(1)
   {
-    //testCpu.clock();
-    nes.cpu->clock();
+    bus.cpu->clock();
   }
 }
