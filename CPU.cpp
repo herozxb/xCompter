@@ -94,7 +94,7 @@ void CPU::clock()
         break; 
   }
   
-  sleep(2);
+  sleep(0.01);
   cout<<"================================================================"<<endl;
   
   // Increment global clock count - This is actually unused unless logging is enabled

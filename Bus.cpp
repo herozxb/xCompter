@@ -191,10 +191,10 @@ Bus::Bus(CPU cpu_)
 	ram[0x800D] = 0x0000;
 	printf("ram[0x800D] is = %hx \n", ram[0x800D]);	
 	
-	ram[0x8020] = 0x0003; //input X
+	ram[0x8020] = 0x000F; //input X
 	printf("ram[0x8020] is = %hx \n", ram[0x8020]);	
 		
-	ram[0x8021] = 0x0002; //input Y
+	ram[0x8021] = 0x000F; //input Y
 	printf("ram[0x8021] is = %hx \n", ram[0x8021]);	
 	//*/
 }
